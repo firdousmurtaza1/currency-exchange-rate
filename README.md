@@ -121,3 +121,7 @@ Technical configuration is loaded at startup by reading these environment variab
     `/admin/currency-converter/`
     
     Pending Features: Add **Currency Converter** to the admin listing page for easier access.
+
+- **Swagger endpoint**
+  `/swagger/`
+   Basic documentation to versioning
