@@ -1,0 +1,13 @@
+{% extends "admin/index.html" %}
+
+{% block app_list %}
+{{ block.super }}
+<div class="app-list">
+    <h2>Custom Links</h2>
+    <ul>
+        {% for link in custom_links %}
+            <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

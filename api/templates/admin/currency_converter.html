@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{% for link in custom_links %}
+            <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+        {% endfor %}
+<h1>Currency Converter</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="button">Convert</button>
+</form>
+
+{% if results %}
+    <h2>Conversion Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Target Currency</th>
+                <th>Exchange Rate</th>
+                <th>Converted Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.target_currency }}</td>
+                <td>{{ result.rate_value }}</td>
+                <td>{{ result.converted_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

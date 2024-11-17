@@ -1,0 +1,37 @@
+exclude: "docs|migrations|.git|.tox|.idea|.svg|.yaml|.img|.png|tools"
+default_stages: [commit]
+# fail_fast: true
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: fix-encoding-pragma
+      - id: mixed-line-ending
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.3.1
+    hooks:
+     -  id: autoflake
+        args: ["--remove-all-unused-imports", "--in-place" , "--exclude=__init__.py,bootstrap/**"]
+
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.8.0
+    hooks:
+      - id: black
+
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 6.1.0
+  #   hooks:
+  #     - id: flake8
+  #       additional_dependencies: [flake8-docstrings, flake8-bugbear]

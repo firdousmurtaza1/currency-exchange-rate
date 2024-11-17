@@ -1,0 +1,8 @@
+django
+djangorestframework
+requests
+django-q
+aiohttp
+drf-yasg
+pre-commit
+python-dotenv
