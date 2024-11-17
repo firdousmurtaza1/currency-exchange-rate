@@ -2,6 +2,7 @@ django
 djangorestframework
 requests
 django-q
+django-q2
 aiohttp
 drf-yasg
 pre-commit
