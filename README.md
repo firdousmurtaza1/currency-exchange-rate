@@ -12,7 +12,7 @@ Requirements:
 
 Clone git repo then install python environment with command.
 
-Enable virtual env 
+Enable virtual env
 ```bash
 python -m venv env
 
@@ -55,73 +55,80 @@ pylint <DIR OR FILE>
 
 Technical configuration is loaded at startup by reading these environment variables (all of them are optional):
 
-- **Currency Providers**: Integration with multiple providers (e.g., CurrencyBeacon, Mock).  
-- **REST API**: Exposes endpoints for:  
-  - Fetching exchange rates.  
-  - Converting between currencies.  
-  - Managing available currencies.  
-- **Back Office**:  
-  - Currency converter.  
-  - Admin tools for managing currencies and providers.  
-- **Adapter Design Pattern**: Flexible integration with multiple providers for scalability.  
-- **Asynchronous Data Loading**: Efficiently loads historical data for analysis.  
-- **Supported Currencies**: Currently supports EUR, CHF, USD, and GBP.  
+- **Currency Providers**: Integration with multiple providers (e.g., CurrencyBeacon, Mock).
+- **REST API**: Exposes endpoints for:
+  - Fetching exchange rates.
+  - Converting between currencies.
+  - Managing available currencies.
+- **Back Office**:
+  - Currency converter.
+  - Admin tools for managing currencies and providers.
+- **Adapter Design Pattern**: Flexible integration with multiple providers for scalability.
+- **Asynchronous Data Loading**: Efficiently loads historical data for analysis.
+- **Supported Currencies**: Currently supports EUR, CHF, USD, and GBP.
 
 
-## Usage  
+## Usage
 
-### API Endpoints 
+### API Endpoints
 #### Examples
-- **Get Exchange Rates**:  
-`GET /api/exchange-rate/?source_currency=USD&exchanged_currency=EUR&valuation_date=2024-11-16` 
+- **Get Exchange Rates**:
+`GET /api/exchange-rate/?source_currency=USD&exchanged_currency=EUR&valuation_date=2024-11-16`
 
-- **Currency Rates**:  
-  `GET api/currency-rates/?source_currency=USD&date_from=2023-01-01&date_to=2023-01-10`  
+- **Currency Rates**:
+  `GET api/currency-rates/?source_currency=USD&date_from=2023-01-01&date_to=2023-01-10`
 - **Convert Rates**:
   `/api/convert/?api/convert/?source_currency=USD&amount=10&exchanged_currency=EUR`
 - **Historical data**
   `GET api/historical/?base=USD&date=2023-01-01&symbols=EUR,GBP,JPY`
 
 
-- **List and Create Currencies**  
-  `GET /api/currencies/`  
-   Description: Retrieve all currencies.  
-- `POST /api/currencies/`  
-    Description: Create a new currency.  
-    Request Body:  
-     ```json  
-      {  
-        "name": "Swiss Franc",  
-        "code": "CHF",  
-        "symbol": "CHF"  
-      }  
-     ```  
-    Response:  
-    ```json  
-      {  
-        "id": 3,  
-        "name": "Swiss Franc",  
-        "code": "CHF",  
-        "symbol": "CHF"  
-      }  
-    ```  
+- **List and Create Currencies**
+  `GET /api/currencies/`
+   Description: Retrieve all currencies.
+- `POST /api/currencies/`
+    Description: Create a new currency.
+    Request Body:
+     ```json
+      {
+        "name": "Swiss Franc",
+        "code": "CHF",
+        "symbol": "CHF"
+      }
+     ```
+    Response:
+    ```json
+      {
+        "id": 3,
+        "name": "Swiss Franc",
+        "code": "CHF",
+        "symbol": "CHF"
+      }
+    ```
 
-- **Retrieve, Update, or Delete a Currency**  
-    `GET /api/currencies/<int:pk>/`  
-    Description: Retrieve a specific currency by ID.  
+- **Retrieve, Update, or Delete a Currency**
+    `GET /api/currencies/<int:pk>/`
+    Description: Retrieve a specific currency by ID.
 
     `PUT /api/currencies/<int:pk>/` or `PATCH /api/currencies/<int:pk>/`
-    Description: Update a currency by ID. 
-    
-    `DELETE /api/currencies/<int:pk>/`  
-    Description**: Delete a currency by ID. 
-    
+    Description: Update a currency by ID.
+
+    `DELETE /api/currencies/<int:pk>/`
+    Description**: Delete a currency by ID.
+
 -  **Back-office**
-    Login through admin section 
+    Login through admin section
     `/admin/currency-converter/`
-    
+
     Pending Features: Add **Currency Converter** to the admin listing page for easier access.
 
 - **Swagger endpoint**
   `/swagger/`
+
    Basic documentation to versioning
+### Management Commands
+To load historical data for the exchange rate between dates
+
+```bash
+python manage.py generate_mock_exchange_data
+```

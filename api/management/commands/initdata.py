@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 DefaultSuperUser.NAME, DefaultSuperUser.EMAIL, DefaultSuperUser.PASSWORD
             )
 
-         # Currency data to be added
+        # Currency data to be added
         currencies = [
             {"code": "GBP", "name": "Pound Sterling", "symbol": "£"},
             {"code": "USD", "name": "US Dollar", "symbol": "$"},
@@ -35,12 +35,19 @@ class Command(BaseCommand):
         for currency_data in currencies:
             currency, created = Currency.objects.get_or_create(
                 code=currency_data["code"],
-                defaults={"name": currency_data["name"], "symbol": currency_data["symbol"]},
+                defaults={
+                    "name": currency_data["name"],
+                    "symbol": currency_data["symbol"],
+                },
             )
             if created:
-                self.stdout.write(self.style.SUCCESS(f"Currency {currency.name} created"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Currency {currency.name} created")
+                )
             else:
-                self.stdout.write(self.style.SUCCESS(f"Currency {currency.name} already exists"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Currency {currency.name} already exists")
+                )
 
         # Provider data to be added
         providers = [
@@ -51,11 +58,16 @@ class Command(BaseCommand):
         for provider_data in providers:
             provider, created = Provider.objects.get_or_create(
                 name=provider_data["name"],  # Use 'name' for matching the provider
-                defaults={"priority": provider_data["priority"], "is_active": provider_data["is_active"]},
+                defaults={
+                    "priority": provider_data["priority"],
+                    "is_active": provider_data["is_active"],
+                },
             )
             if created:
-                self.stdout.write(self.style.SUCCESS(f"Provider {provider.name} created"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Provider {provider.name} created")
+                )
             else:
-                self.stdout.write(self.style.SUCCESS(f"Provider {provider.name} already exists"))
-
-        
+                self.stdout.write(
+                    self.style.SUCCESS(f"Provider {provider.name} already exists")
+                )

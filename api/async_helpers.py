@@ -1,23 +1,30 @@
-import aiohttp
+# -*- coding: utf-8 -*-
 import asyncio
+
+import aiohttp
+
+from core import settings
+
 
 async def fetch_historical_data(base, date, symbols):
     """
     Asynchronously fetch historical exchange rate data from the CurrencyBeacon API.
     """
-    url = 'https://api.currencybeacon.com/v1/historical'
-    api_key= "wJfoVxcwYQII319HNEiLDawHnZuPsCpM"
+    url = f"{settings.API_BASE_URL}/historical"
     params = {
-        'api_key': api_key,
-        'base': base,
-        'date': date,
-        'symbols': ','.join(symbols),  # Join the list of symbols into a comma-separated string
+        "api_key": settings.API_KEY,
+        "base": base,
+        "date": date,
+        "symbols": ",".join(
+            symbols
+        ),  # Join the list of symbols into a comma-separated string
     }
 
     async with aiohttp.ClientSession() as session:
         async with session.get(url, params=params) as response:
             response.raise_for_status()  # Raise an exception for HTTP errors
             return await response.json()  # Return JSON data from the response
+
 
 def load_historical_data(base, date, symbols):
     """

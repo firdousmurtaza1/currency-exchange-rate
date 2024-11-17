@@ -1,9 +1,9 @@
+aiohttp
 django
-djangorestframework
-requests
 django-q
 django-q2
-aiohttp
+djangorestframework
 drf-yasg
 pre-commit
 python-dotenv
+requests

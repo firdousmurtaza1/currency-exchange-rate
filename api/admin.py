@@ -1,11 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.urls import path, reverse
-from django.utils.html import format_html
-from django.http import HttpResponseRedirect
-from api.models import Currency, CurrencyExchangeRate, Provider
-from django.contrib.admin import AdminSite
 
+from api.models import Currency, CurrencyExchangeRate, Provider
 from api.views import CurrencyConverterAdminView
+
 
 # Register your models here.
 @admin.register(Currency)
@@ -15,14 +14,17 @@ class CurrencyAdmin(admin.ModelAdmin):
 
 @admin.register(CurrencyExchangeRate)
 class CurrencyExchangeRateAdmin(admin.ModelAdmin):
-    list_display = ("source_currency", "exchanged_currency", "rate_value", "valuation_date")
+    list_display = (
+        "source_currency",
+        "exchanged_currency",
+        "rate_value",
+        "valuation_date",
+    )
 
 
 @admin.register(Provider)
 class ProviderAdmin(admin.ModelAdmin):
     list_display = ("name", "priority", "is_active")  # Customize as needed
-
-
 
 
 # Custom Admin Site
@@ -36,15 +38,14 @@ class CustomAdminSite(admin.AdminSite):
             extra_context = {}
 
         # Add custom link to the context
-        extra_context['custom_links'] = [
+        extra_context["custom_links"] = [
             {
-                'name': 'Currency Converter',
-                'url': reverse('admin:currency_converter'),
+                "name": "Currency Converter",
+                "url": reverse("admin:currency_converter"),
             }
         ]
         return super().index(request, extra_context=extra_context)
 
-    
     # Add custom URLs
     def get_urls(self):
         urls = super().get_urls()
@@ -56,7 +57,7 @@ class CustomAdminSite(admin.AdminSite):
             ),
         ]
         return custom_urls + urls
-    
+
 
 # Register your custom admin site
 custom_admin_site = CustomAdminSite(name="custom_admin")
