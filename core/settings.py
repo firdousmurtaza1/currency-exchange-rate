@@ -53,6 +53,16 @@ INSTALLED_APPS = [
     "api",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",  # Optional
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",  # Ensure API requires authentication
+    ],
+}
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -161,5 +171,5 @@ schema_view = get_schema_view(
 
 
 # env variables
-API_KEY = os.environ.get("API_KEY")
-API_BASE_URL = os.environ.get("API_URL")
+API_KEY = os.environ.get("API_KEY", "wJfoVxcwYQII319HNEiLDawHnZuPsCpM")
+API_BASE_URL = os.environ.get("API_URL", "https://api.currencybeacon.com/v1")

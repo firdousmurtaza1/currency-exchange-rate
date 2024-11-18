@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django_q.tasks import async_task
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -24,12 +25,16 @@ from .services.provider_service import ProviderService, get_exchange_rate_data
 
 
 class CurrencyListCreate(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
 
 # Retrieve, update, or delete a specific currency
 class CurrencyRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
@@ -38,6 +43,8 @@ class CurrencyRatesList(APIView):
     """
     API view to retrieve a list of currency exchange rates for a specific time period.
     """
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
@@ -98,6 +105,8 @@ class ConvertAmountView(APIView):
     or a live rate from an external provider.
     """
 
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
 
         from_currency = request.query_params.get("source_currency")
@@ -154,6 +163,8 @@ class ExchangeRateView(APIView):
     API view to fetch the exchange rate between two currencies for a specific valuation date.
     """
 
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, *args, **kwargs):
 
         source_currency_code = request.query_params.get("source_currency")
@@ -204,7 +215,9 @@ class ExchangeRateView(APIView):
                 rate_value=rate,
             )
 
-            return Response({"exchange_rate": str(rate)}, status=status.HTTP_200_OK)
+            return Response(
+                {"exchange_rate": str(round(rate, 2))}, status=status.HTTP_200_OK
+            )
 
         except Exception as e:
             return Response(
@@ -216,6 +229,8 @@ class HistoricalDataView(View):
     """
     A Django class-based view to initiate loading of historical exchange rate data.
     """
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         base = request.GET.get("base", "USD")
@@ -240,6 +255,8 @@ class HistoricalDataView(View):
 
 @method_decorator(staff_member_required, name="dispatch")
 class CurrencyConverterAdminView(View):
+    permission_classes = [IsAuthenticated]
+
     template_name = "admin/currency_converter.html"
 
     def get(self, request):

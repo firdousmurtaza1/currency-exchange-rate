@@ -27,8 +27,8 @@ Technical settings are defined through environment variables (see below). Create
 Example:
 
 ```sh
-DJANGO_TIMEZONE=Europe/Paris
-LOG_LEVEL=DEBUG
+API_KEY=""
+API_URL="https://api.currencybeacon.com/v1"
 ```
 
 ## Pre-commit hook
@@ -131,4 +131,11 @@ To load historical data for the exchange rate between dates
 
 ```bash
 python manage.py generate_mock_exchange_data
+```
+
+### POSTMAN Collection
+API Collection file:
+
+```
+CurrencyAPI.postman_collection.json
 ```
