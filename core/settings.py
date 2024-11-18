@@ -171,5 +171,5 @@ schema_view = get_schema_view(
 
 
 # env variables
-API_KEY = os.environ.get("API_KEY", "wJfoVxcwYQII319HNEiLDawHnZuPsCpM")
+API_KEY = os.environ.get("API_KEY", "")
 API_BASE_URL = os.environ.get("API_URL", "https://api.currencybeacon.com/v1")
